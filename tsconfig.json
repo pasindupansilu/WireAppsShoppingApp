@@ -1,0 +1,19 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "paths": {
+      "@Api/*": ["./App/Api/*"],
+      "@Components/*": ["./App/Components/*"],
+      "@Screens/*": ["./App/Screens/*"],
+      "@Redux/*": ["./App/Redux/*"],
+      "@Utils/*": ["./App/Utils/*"]
+    }
+  },
+  "include": ["./App/**/*", "**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "babel.config.js",
+    "metro.config.js"
+  ]
+}
