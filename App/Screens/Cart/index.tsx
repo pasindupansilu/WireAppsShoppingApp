@@ -105,7 +105,9 @@ const useCart = ({navigation}: useCartProps) => {
       Toast.show({
         type: 'error',
         text1: 'Cart Save Failed',
-        text2: (error as unknown as any).error,
+        text2:
+          (error as unknown as any)?.error ||
+          (error as unknown as any)?.message,
       });
     }
   }, [itemList, total]);
