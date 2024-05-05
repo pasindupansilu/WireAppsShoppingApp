@@ -13,6 +13,7 @@ import {StorageKeys} from '@Utils/Storage/storage';
 import {useCallback, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import RemixIcon from 'react-native-remix-icon';
+import Toast from 'react-native-toast-message';
 
 type CartScreenProps = StackScreenParams<'Cart'>;
 const Cart = ({navigation}: CartScreenProps) => {
@@ -53,10 +54,7 @@ const Cart = ({navigation}: CartScreenProps) => {
         <View className="flex-row items-center justify-between border-t-[1px] border-light-grey pt-4 mx-6">
           <TouchableOpacity
             className="mb-5 p-4 bg-orange rounded-xl"
-            onPress={() => {
-              clearCart();
-              navigation.navigate('Home', {showMiniCart: true});
-            }}>
+            onPress={clearCart}>
             <View className="flex-1 flex-row items-center justify-center">
               <RemixIcon name="delete-bin-5-line" />
             </View>
@@ -98,8 +96,17 @@ const useCart = ({navigation}: useCartProps) => {
     try {
       await Storage.setItemToStorage(StorageKeys.CART_ITEM_LIST, itemList);
       await Storage.setItemToStorage(StorageKeys.CART_TOTAL, total);
+      Toast.show({
+        type: 'success',
+        text1: 'Cart Saved Successfully',
+      });
     } catch (error) {
       console.log(error);
+      Toast.show({
+        type: 'error',
+        text1: 'Cart Save Failed',
+        text2: (error as unknown as any).error,
+      });
     }
   }, [itemList, total]);
 
@@ -107,7 +114,14 @@ const useCart = ({navigation}: useCartProps) => {
     itemList,
     total,
     totalQty,
-    clearCart,
+    clearCart: () => {
+      clearCart();
+      Toast.show({
+        type: 'success',
+        text1: 'Cart Cleared Successfully',
+      });
+      navigation.navigate('Home', {showMiniCart: true});
+    },
     saveCartItemList,
   };
 };

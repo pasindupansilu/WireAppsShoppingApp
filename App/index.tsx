@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {LoaderStateProvider} from '@Utils/ContextAPI/LoaderManagement';
 import Loader from '@Components/Molecules/Loader';
 import {SafeAreaView} from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <AppStack />
           </SafeAreaView>
           <Loader />
+          <Toast />
         </Provider>
       </NavigationContainer>
     </LoaderStateProvider>

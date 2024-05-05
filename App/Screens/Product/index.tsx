@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RemixIcon from 'react-native-remix-icon';
+import Toast from 'react-native-toast-message';
 
 export type ProductScreenProps = StackScreenParams<'Product'>;
 const Product = ({navigation, route}: ProductScreenProps) => {
@@ -185,6 +186,11 @@ const useProduct = ({route}: useProductProps) => {
 
   const onClick = useCallback(() => {
     addItemToCart({...item, size: selectedSize, quantity: 1} as CartItemProps);
+    Toast.show({
+      type: 'success',
+      text1: 'Added to the cart',
+      text2: `${item?.name} - (Size: ${selectedSize}, Qty: 1)`,
+    });
   }, [addItemToCart, item, selectedSize]);
 
   return {

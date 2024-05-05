@@ -7,6 +7,7 @@ import {
   useDecreaseItemQuantity,
   useRemoveCartItem,
 } from '@Redux/Actions/CartActions';
+import Toast from 'react-native-toast-message';
 
 type CartItemCompProps = {
   item: CartItemProps;
@@ -34,7 +35,15 @@ const CartItem = ({item}: CartItemCompProps) => {
           </View>
         </View>
         <View className="pt-1">
-          <TouchableOpacity onPress={() => removeItem(item.id, item.size)}>
+          <TouchableOpacity
+            onPress={() => {
+              removeItem(item.id, item.size);
+              Toast.show({
+                type: 'success',
+                text1: 'Item Removed Successfully',
+                text2: `${item.name} - (Size: ${item.size}, Qty: ${item.quantity})`,
+              });
+            }}>
             <RemixIcon name="close-line" size={20} color="red" />
           </TouchableOpacity>
         </View>
